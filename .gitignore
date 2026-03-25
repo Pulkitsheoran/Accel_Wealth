@@ -1,16 +1,18 @@
 # Security: NEVER push keys or secrets
-key.txt
-key.txt.pub
 *.pem
 *.key
-
+.env
+main.py
+test_sentiments.py
 # Python Junk
 __pycache__/
 *.py[cod]
 *$py.class
 .venv/
 env/
+.env/
 
 # Editor/OS Junk
 .DS_Store
 pyrightconfig.json
+
