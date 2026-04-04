@@ -1,61 +1,158 @@
-💹 AccelWealth AI
-The Next-Gen Quant-Sentiment Terminal for 2026 Markets
+<div align="center">
 
-AccelWealth AI is a high-performance financial intelligence engine. It doesn't just track prices; it synthesizes Global Macro Context and FinBERT Sentiment Analysis into a single, actionable "Technical Confluence" report.
+<img src="https://img.shields.io/badge/version-1.0.0-0a0a0a?style=flat-square&labelColor=0a0a0a&color=00ff88" alt="version"/>
+<img src="https://img.shields.io/badge/python-3.10%2B-0a0a0a?style=flat-square&labelColor=0a0a0a&color=00ff88" alt="python"/>
+<img src="https://img.shields.io/badge/license-MIT-0a0a0a?style=flat-square&labelColor=0a0a0a&color=00ff88" alt="license"/>
+<img src="https://img.shields.io/badge/status-experimental-0a0a0a?style=flat-square&labelColor=0a0a0a&color=ffaa00" alt="status"/>
 
-Built with an asynchronous backbone, it is designed to bypass modern API restrictions while delivering institutional-grade insights to your terminal.
-⚡ Key Capabilities
+<br/>
+<br/>
 
-    🌐 Macro-Weighted Intelligence: Scans geopolitical, monetary, and energy pillars. Macro news is weighted 2.5x heavier than ticker news to detect systemic shifts before they hit the price.
+```
+  ___               _  _    _   _                 _   _     _     _
+ / _ \   __ _  ___ | || |  | | | |   ___  __ _  | | | |_  | |_  | |
+| |_| | / _ˋ ||  _||  _  | | | | |  / _ \/ _ˋ | | | |  _| |  _| | . \
+|_| |_||___|_||___||_| |_| |_|_|_| |___/\__/_| |_|  \__|  \__| |_||_|
+                    A I   T E R M I N A L   2 0 2 6
+```
 
-    🤖 Neural Sentiment Engine: Leverages ProsusAI/finbert to decode the "vibe" of global headlines with high precision.
+# AccelWealth AI
 
-    📊 Real-Time Confluence: Fuses fast_info live pricing with RSI, MACD, and Bollinger Band calculations.
+**Quant-Sentiment Intelligence for Modern Markets**
 
-    🛡️ Stealth Networking: Utilizes curl_cffi for advanced TLS fingerprinting, ensuring uninterrupted data flow from Yahoo Finance in the 2026 security environment.
+*Fusing global macro context, FinBERT NLP, and real-time technicals into a single actionable signal.*
 
-🚀 Installation & Deployment
+<br/>
 
-Choose the path that fits your setup. Both methods automatically configure the environment and solve the curl_cffi dependency.
-Method 1: The Quick-Start (No Clone)
+[Get Started](#-installation) · [Architecture](#-architecture) · [Configuration](#-configuration) · [Disclaimer](#-disclaimer)
 
-Ideal for a quick test. This script builds the entire directory structure and environment in one go:
-Bash
+---
 
-curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/setup.sh | bash
+</div>
 
-Method 2: The Developer Flow (Git)
+## Overview
 
-Use this if you plan to modify the logic or contribute to the engine:
-Bash
+AccelWealth AI is a research-grade financial intelligence terminal that goes beyond raw price data. It synthesizes **three analytical pillars** — geopolitical macro context, neural sentiment analysis, and quantitative technical indicators — into a unified "Technical Confluence" report designed for informed decision-making.
 
-# Clone the core
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+This is not a trading bot. It is a structured research assistant built for analysts who want signal, not noise.
 
-# Initialize Environment
+<br/>
+
+## Features
+
+| Capability | Description |
+|---|---|
+| **Macro Intelligence** | Scans geopolitical, monetary policy, and energy market pillars for weighted context signals |
+| **Neural Sentiment** | Runs `ProsusAI/finbert` over global financial headlines to decode institutional tone |
+| **Technical Confluence** | Merges live pricing data with RSI, MACD, and Bollinger Bands into one coherent view |
+| **Async Ingestion** | Non-blocking multi-source scraping via `aiohttp` for low-latency data pipelines |
+| **Stealth Networking** | Advanced TLS fingerprinting via `curl_cffi` to minimize rate-limit friction |
+| **Rich CLI** | Interactive terminal UI powered by `Rich` for clean, readable output |
+
+<br/>
+
+## Installation
+
+### Option 1 — Quick Start
+
+For users who want to run immediately without cloning:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/setup.sh | bash
+```
+
+> This script creates a virtual environment, installs all dependencies, and validates your configuration.
+
+---
+
+### Option 2 — Developer Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+
+# 2. Run the setup script
 chmod +x setup.sh && ./setup.sh
 
-# Launch the Terminal
+# 3. Activate the environment and launch
 source .venv/bin/activate
 python tool.py
+```
 
-🛠️ Technical Architecture
-Component	Responsibility	Tech Stack
-Ingestion	Multi-pillar Async Scraping	aiohttp, yfinance
-Analysis	Weighted NLP Sentiment	FinBERT, PyTorch
-Quant	Technical Indicator Math	NumPy, Pandas
-UI	Interactive CLI Interface	Rich, Markdown
-⚙️ Configuration
+<br/>
 
-Before firing up the engine, update your config.py with your credentials:
-Python
+## Architecture
 
+```
+┌─────────────────────────────────────────────────────────┐
+│                    AccelWealth AI                       │
+├──────────────┬──────────────┬───────────────────────────┤
+│   INGESTION  │   ANALYSIS   │          OUTPUT           │
+│              │              │                           │
+│  aiohttp     │  FinBERT     │  Rich CLI Terminal        │
+│  yfinance    │  PyTorch     │  Confluence Report        │
+│  curl_cffi   │  NumPy       │  Macro Signal Summary     │
+│              │  Pandas      │                           │
+└──────────────┴──────────────┴───────────────────────────┘
+```
+
+| Layer | Component | Responsibility | Stack |
+|---|---|---|---|
+| **Ingestion** | Data Collector | Multi-source async scraping & live pricing | `aiohttp`, `yfinance`, `curl_cffi` |
+| **Analysis** | Sentiment Engine | FinBERT NLP over financial headlines | `ProsusAI/finbert`, `PyTorch` |
+| **Quant** | Indicator Engine | RSI, MACD, Bollinger Band computation | `NumPy`, `Pandas` |
+| **Output** | CLI Interface | Interactive terminal rendering | `Rich` |
+
+<br/>
+
+## Configuration
+
+Edit `config.py` before first run:
+
+```python
 class Config:
+    # OpenRouter API credentials
     OPENROUTER_API_KEY = "your_api_key_here"
-    BASE_URL = "https://openrouter.ai/api/v1"
-    # Select your preferred AI model
-    PRIMARY_MODEL = "google/gemini-2.0-flash-exp:free"
+    BASE_URL           = "https://openrouter.ai/api/v1"
 
-    [!IMPORTANT]
-    Financial Disclaimer: AccelWealth AI is an experimental research tool. It is not financial advice. Trading securities involves significant risk. Always verify data through official brokerage channels.
+    # Model selection (defaults to Gemini Flash for speed)
+    PRIMARY_MODEL      = "google/gemini-2.0-flash-exp:free"
+```
+
+To obtain an API key, visit [openrouter.ai](https://openrouter.ai) and create a free account.
+
+<br/>
+
+## Requirements
+
+- Python `3.10+`
+- PyTorch (CPU is sufficient; GPU accelerates FinBERT inference)
+- An OpenRouter API key
+- Internet access for live data ingestion
+
+Full dependency list is managed in `requirements.txt` and installed automatically by `setup.sh`.
+
+<br/>
+
+## Disclaimer
+
+> **AccelWealth AI is an experimental research tool intended for educational and analytical purposes only.**
+>
+> Nothing produced by this software constitutes financial advice, investment recommendations, or trading signals. All outputs are the result of automated data processing and carry no guarantee of accuracy, timeliness, or fitness for any particular purpose.
+>
+> Trading and investing in securities involves substantial risk of loss. You are solely responsible for your own investment decisions. The authors and contributors of this project accept no liability for financial outcomes resulting from use of this software.
+
+<br/>
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for details.
+
+---
+
+<div align="center">
+
+Built for research. Not for reckless trading.
+
+</div>
