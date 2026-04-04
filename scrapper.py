@@ -1,54 +1,79 @@
+import asyncio
 import yfinance as yf
+import requests
 from datetime import datetime
+from typing import List, Dict
 
 
 class DataIngestionLayer:
     def __init__(self):
-        pass
+        # 1. BRAINS: The Macro Pillars for global context
+        self.macro_pillars = {
+            "GEOPOLITICS": "global conflict war geopolitical risk stability",
+            "MONETARY": "federal reserve interest rates inflation CPI central bank",
+            "ENERGY": "oil prices gas energy supply disruption commodities",
+            "MACRO": "global economy recession gdp growth market outlook",
+        }
 
-    def scrape_news(self, ticker):
-        """
-        2026 Stable Yahoo Method: Uses the Search API.
-        No BeautifulSoup or Selenium required.
-        """
-        news_list = []
+        # 2. SESSION: Pretend to be a real browser to avoid being blocked
+        self.session = requests.Session()
+        self.session.headers.update(
+            {
+                "User-Agent": "Mozilla/5.0 (X11; Arch Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            }
+        )
+
+    async def _fetch_pillar(self, query: str, p_type: str) -> List[Dict]:
+        """Asynchronous worker using yfinance's internal optimized session."""
         try:
-            print(f"[*] Querying Yahoo Finance API for {ticker} news...")
+            # Keep the jitter sleep; it's good practice for Arch/high-speed tasks
+            await asyncio.sleep(0.1)
 
-            # Use the Search module to find news related to the ticker
-            search = yf.Search(ticker, max_results=8)
-            raw_news = search.news
+            loop = asyncio.get_event_loop()
 
-            if not raw_news:
-                print(f"[!] Yahoo returned no news for {ticker}.")
+            # REMOVED: session=self.session
+            # yfinance will now use its own internal curl_cffi session automatically
+            search = await loop.run_in_executor(
+                None, lambda: yf.Search(query, max_results=6)
+            )
+
+            if not search or not search.news:
                 return []
 
-            for item in raw_news:
-                # Yahoo's API uses these specific keys
-                title = item.get("title")
-                link = item.get("link")
+            return [
+                {
+                    "headline": n.get("title", "No Title"),
+                    "type": p_type,
+                    "source": n.get("publisher", "Unknown"),
+                    "time": datetime.fromtimestamp(
+                        n.get("providerPublishTime", 0)
+                    ).strftime("%H:%M"),
+                }
+                for n in search.news
+            ]
+        except Exception:
+            # Silently fail for the individual pillar so the whole scan doesn't crash
+            return []
 
-                # Convert the 'providerPublishTime' to readable format
-                pub_time = item.get("providerPublishTime", 0)
-                ts = (
-                    datetime.fromtimestamp(pub_time).strftime("%Y-%m-%d %H:%M")
-                    if pub_time
-                    else "N/A"
-                )
+    async def scrape_comprehensive(self, ticker: str) -> List[Dict]:
+        """Parallel fetch of Ticker + Global context."""
+        # Start with the specific ticker
+        tasks = [self._fetch_pillar(ticker, "TICKER")]
 
-                if title and link:
-                    news_list.append(
-                        {
-                            "ticker": ticker,
-                            "headline": title,
-                            "url": link,
-                            "timestamp": ts,
-                        }
-                    )
+        # Fire off all macro pillars simultaneously
+        for name, query in self.macro_pillars.items():
+            tasks.append(self._fetch_pillar(query, name))
 
-            print(f"[OK] Retrieved {len(news_list)} headlines.")
+        results = await asyncio.gather(*tasks)
 
-        except Exception as e:
-            print(f"[!] Yahoo API Error: {e}")
+        # Flatten the list of lists
+        return [item for sublist in results for item in sublist]
 
-        return news_list
+
+# Helper for tool.py
+def get_global_news(ticker: str) -> List[Dict]:
+    # We create a new instance each time or reuse a global one
+    # Reusing a global instance is better for session persistence
+    scraper = DataIngestionLayer()
+    return asyncio.run(scraper.scrape_comprehensive(ticker))
