@@ -65,7 +65,7 @@ Recommended if you intend to modify the source, contribute, or inspect the pipel
 ```bash
 # Clone the repository
 git clone https://github.com/Pulkitsheoran/Accel_Wealth.git
-cd YOUR_REPO
+cd Accel_Wealth
 
 # Make the setup script executable and run it
 chmod +x setup.sh && ./setup.sh
