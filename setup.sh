@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # AccelWealth AI - Universal Setup (Git & No-Git Support)
-REPO_RAW_URL="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main"
+REPO_RAW_URL="https://raw.githubusercontent.com/Pulkitsheoran/Accel_Wealth/main"
 PROJECT_DIR="accelwealth_ai"
 
 echo -e "\033[1;34m[*] AccelWealth AI: Initializing System...\033[0m"
