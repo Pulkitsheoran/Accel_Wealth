@@ -51,7 +51,7 @@ The goal is not to predict markets. It is to give you a faster, more complete pi
 The fastest way to get running. Downloads, configures, and launches the environment in a single command:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/Pulkitsheoran/Accel_Wealth/main/setup.sh | bash
 ```
 
 > `setup.sh` creates an isolated virtual environment, installs all dependencies from `requirements.txt`, and runs a basic configuration check before exiting.
@@ -64,7 +64,7 @@ Recommended if you intend to modify the source, contribute, or inspect the pipel
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git clone https://github.com/Pulkitsheoran/Accel_Wealth.git
 cd YOUR_REPO
 
 # Make the setup script executable and run it
